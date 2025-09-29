@@ -1,18 +1,17 @@
-c 1 3
-c 2 1
-c 3 3
-c 4 2
-c 5 1
-c 6 1
-c 7 3
-c 8 1
-a 5
-a 4
-c 9 3
-c 10 2
-c 11 1
-c 12 2
-a 2
-a 6
-r 3
-f
+c-1-verde
+c-2-vermelha
+c-3-verde
+c-4-amarela
+c-5-vermelha 
+c-6-vermelha
+c-7-verde
+c-8-vermelha
+a-5-vermelha
+a-4-amarela
+c-9-verde
+c-10-amarela
+c-11-vermelha
+c-12-amarela
+a-2-vermelha
+a-6-vermelha
+a-3-verde

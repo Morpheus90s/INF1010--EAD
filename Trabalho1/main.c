@@ -1,38 +1,43 @@
 #include "lista.h"
+#include <string.h>
+
+int corParaConst(const char *cor) {
+    if (strcmp(cor, "vermelha") == 0) return VERMELHO;
+    if (strcmp(cor, "amarela")  == 0) return AMARELO;
+    if (strcmp(cor, "verde")    == 0) return VERDE;
+    return 0; 
 
 int main(void) {
     Paciente *lista = NULL;
-    char op;
-    int id, cor;
+    char linha[50];
 
-    while (scanf(" %c", &op) == 1) {
-        if (op == 'c') {          
-            if (scanf("%d %d", &id, &cor) != 2) break;
-            lista = inserirPaciente(lista, id, cor);
-            printf("c-%d-%s\n", id, nomeCor(cor));
-        } else if (op == 'a') {    
-            if (scanf("%d", &id) != 1) break;
-            Paciente *p = buscarPaciente(lista, id);
-            if (p) {
-                printf("a-%d-%s\n", id, nomeCor(p->cor));
-                lista = removerPaciente(lista, id);
-            } else {
-                printf("a-%d-nao-encontrado\n", id);
+    while (fgets(linha, sizeof(linha), stdin)) {
+        char op;
+        int id;
+        char corStr[20];
+
+        if (sscanf(linha, " %c-%d-%19s", &op, &id, corStr) >= 2) {
+            
+            corStr[strcspn(corStr, "\n")] = 0;
+
+            if (op == 'c') {
+                int cor = corParaConst(corStr);
+                if (cor == 0) continue;
+                lista = inserirPaciente(lista, id, cor);
+                imprimirLista(lista);
+
+            } else if (op == 'a') { 
+                Paciente *p = buscarPaciente(lista, id);
+                if (p) lista = removerPaciente(lista, id);
+                imprimirLista(lista);
+                imprimirQuantidades(lista);
+
+            } else if (op == 'r') { 
+                Paciente *p = buscarPaciente(lista, id);
+                if (p) lista = removerPaciente(lista, id);
+                imprimirLista(lista);
+
             }
-        } else if (op == 'r') {   
-            if (scanf("%d", &id) != 1) break;
-            Paciente *p = buscarPaciente(lista, id);
-            if (p) {
-                printf("r-%d-%s\n", id, nomeCor(p->cor));
-                lista = removerPaciente(lista, id);
-            } else {
-                printf("r-%d-nao-encontrado\n", id);
-            }
-        } else if (op == 'f') {   
-            break;
-        } else {
-            int ch;
-            while ((ch = getchar()) != '\n' && ch != EOF) ;
         }
     }
 

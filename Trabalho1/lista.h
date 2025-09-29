@@ -14,5 +14,6 @@ typedef struct paciente {
 Paciente* inserirPaciente(Paciente *lista, int id, int cor);
 Paciente* removerPaciente(Paciente *lista, int id);
 Paciente* buscarPaciente(Paciente *lista, int id);
-char* nomeCor(int cor);
-
+const char* nomeCor(int cor);
+void imprimirLista(Paciente *lista);
+void imprimirQuantidades(Paciente *lista);
