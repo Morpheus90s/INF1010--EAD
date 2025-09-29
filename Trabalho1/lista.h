@@ -1,5 +1,8 @@
+#define LISTA_H
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define VERMELHO 1
 #define AMARELO  2

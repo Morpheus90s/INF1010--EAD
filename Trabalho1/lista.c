@@ -3,17 +3,25 @@
 Paciente* inserirPaciente(Paciente *lista, int id, int cor) {
     Paciente *novo = malloc(sizeof(Paciente));
     if (!novo) { perror("malloc"); exit(1); }
-    novo->id = id; novo->cor = cor; novo->prox = NULL;
+    novo->id = id; 
+    novo->cor = cor; 
+    novo->prox = NULL;
 
-    if (!lista || cor < lista->cor || (cor == lista->cor && id < lista->id)) {
+    if (!lista || 
+        cor < lista->cor || 
+        (cor == lista->cor && id < lista->id)) 
+    {
         novo->prox = lista;
         return novo;
     }
 
     Paciente *p = lista;
-    while (p->prox && (p->prox->cor < cor ||
-          (p->prox->cor == cor && p->prox->id < id)))
+    while (p->prox && 
+           (p->prox->cor < cor || 
+            (p->prox->cor == cor && p->prox->id < id))) 
+    {
         p = p->prox;
+    }
 
     novo->prox = p->prox;
     p->prox = novo;
@@ -33,8 +41,8 @@ Paciente* removerPaciente(Paciente *lista, int id) {
         p = p->prox;
     }
     if (!p) return lista;
-    if (!ant) lista = p->prox;
-    else ant->prox = p->prox;
+    if (!ant) lista = p->prox; 
+    else ant->prox = p->prox; 
     free(p);
     return lista;
 }
@@ -42,20 +50,21 @@ Paciente* removerPaciente(Paciente *lista, int id) {
 const char* nomeCor(int cor) {
     if (cor == VERMELHO) return "Vermelha";
     if (cor == AMARELO)  return "Amarela";
-    return "Verde";
+    if (cor == VERDE)    return "Verde";
+    return "";
 }
 
 void imprimirLista(Paciente *lista) {
     for (Paciente *p = lista; p; p = p->prox)
-        printf("%d - %s\n", p->id, nomeCor(p->cor));
+        printf("%d-%s\n", p->id, nomeCor(p->cor));
 }
 
 void imprimirQuantidades(Paciente *lista) {
-    int v=0,a=0,g=0;
+    int v=0, a=0, g=0;
     for (Paciente *p = lista; p; p = p->prox) {
         if (p->cor == VERMELHO) v++;
         else if (p->cor == AMARELO) a++;
         else g++;
     }
-    printf("vermelha-%d, amarela-%d, verde-%d\n", v,a,g);
+    printf("vermelha-%d, amarela-%d, verde-%d\n", v, a, g);
 }
